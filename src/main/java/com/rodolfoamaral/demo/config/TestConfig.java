@@ -50,6 +50,16 @@ public class TestConfig implements CommandLineRunner {
 		repoCategoria.saveAll(Arrays.asList(cat1, cat2, cat3));
 		repoProd.saveAll(Arrays.asList(prod1, prod2, prod3, prod4, prod5));
 		
+		//Associação entre objetos
+		prod1.getCategorias().add(cat2); 
+		prod2.getCategorias().add(cat1);
+		prod2.getCategorias().add(cat3);
+		prod3.getCategorias().add(cat3);
+		prod4.getCategorias().add(cat3);
+		prod5.getCategorias().add(cat2);
+		
+		repoProd.saveAll(Arrays.asList(prod1, prod2, prod3, prod4, prod5));
+		
 		Usuario u1 = new Usuario(null, "Gordon Freeman", "DrFreeman@blackmesa.com", "988888888", "808080");
 		Usuario u2 = new Usuario(null, "Agent 47", "a47@id.io", "977777777", "004700");
 		

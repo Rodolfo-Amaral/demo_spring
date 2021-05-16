@@ -8,14 +8,16 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
 @Entity
 @Table(name = "produtos")
 public class Produto implements Serializable {
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -23,11 +25,13 @@ public class Produto implements Serializable {
 	private String descricao;
 	private Double preco;
 	private String imgUrl;
-	
-	//SET = conjunto, para garantir que um produto nao tenha mais de uma categoria
-	@Transient
-	private Set<Categoria> categorias = new HashSet<>(); //garantir que a coleção não começe nula (nao colocar no construtor pois ja esta instanciada aqui)
-	
+
+	@ManyToMany
+	@JoinTable(name = "categoria_produto", joinColumns = @JoinColumn(name = "id_produto"), inverseJoinColumns = @JoinColumn(name = "id_categoria"))
+	// SET = para nao ter elementos duplicados
+	private Set<Categoria> categorias = new HashSet<>(); // garantir que a coleção não começe nula (nao colocar no
+															// construtor pois ja esta instanciada aqui)
+
 	public Produto() {
 	}
 
@@ -114,5 +118,5 @@ public class Produto implements Serializable {
 			return false;
 		return true;
 	}
-	
+
 }
