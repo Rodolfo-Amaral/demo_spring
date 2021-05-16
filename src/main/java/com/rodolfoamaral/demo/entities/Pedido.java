@@ -11,6 +11,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.rodolfoamaral.demo.entities.enums.StatusPedido;
 
 @Entity
 public class Pedido implements Serializable {
@@ -22,6 +23,8 @@ public class Pedido implements Serializable {
 	private Long id;
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
 	private Instant momentoDoPedido;
+	
+	private Integer statusPedido;
 
 	@ManyToOne // muitos pra 1
 	@JoinColumn(name = "id_cliente") // criar coluna no banco de dados
@@ -30,10 +33,11 @@ public class Pedido implements Serializable {
 	public Pedido() {
 	}
 
-	public Pedido(Long id, Instant momentoDoPedido, Usuario cliente) {
+	public Pedido(Long id, Instant momentoDoPedido, StatusPedido statusPedido, Usuario cliente) {
 		super();
 		this.id = id;
 		this.momentoDoPedido = momentoDoPedido;
+		setStatusPedido(statusPedido);
 		this.cliente = cliente;
 	}
 
@@ -51,6 +55,16 @@ public class Pedido implements Serializable {
 
 	public void setMomentoDoPedido(Instant momentoDoPedido) {
 		this.momentoDoPedido = momentoDoPedido;
+	}
+
+	public StatusPedido getStatusPedido() {
+		return StatusPedido.valueOf(statusPedido);
+	}
+	
+	public void setStatusPedido(StatusPedido statusPedido) {
+		if (statusPedido != null) {
+		this.statusPedido = statusPedido.getCod();
+		}
 	}
 
 	public Usuario getCliente() {
