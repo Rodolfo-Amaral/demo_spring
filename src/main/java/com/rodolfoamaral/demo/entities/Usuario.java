@@ -2,9 +2,17 @@ package com.rodolfoamaral.demo.entities;
 
 import java.io.Serializable;
 
+import javax.persistence.Entity; //Fazer a classe depender da expecificação e não da implementação (hibernate)
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+@Entity
 public class Usuario implements Serializable { //transformar obj em cadeias de bites, para trafegar na rede e ser gravado em arquivos
 	private static final long serialVersionUID = 1L;
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY) //indicar que a chave ID é auto-incrementável
 	private Long id;
 	private String nome;
 	private String email;
