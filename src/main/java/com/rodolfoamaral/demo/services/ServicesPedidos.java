@@ -15,12 +15,11 @@ public class ServicesPedidos {
 	@Autowired
 	private RepositoryPedido repoPedido;
 	
-	//RETORNAR TODOS PedidoS DO BANCO
+	//RETORNAR TODOS PEDIDOS DO BANCO
 	public List<Pedido> localizaTodos() {
 		return repoPedido.findAll();
 	}
 	
-	//BUSCAR USER PELA ID
 	public Pedido localizarID(Long id) {
 		Optional<Pedido> obj = repoPedido.findById(id);
 		return obj.get(); //retornar o obj dentro do optional
