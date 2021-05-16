@@ -10,19 +10,23 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 @Entity
-public class Pedido implements Serializable{
+public class Pedido implements Serializable {
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY) //indicar que o ID é auto incrementavel (cada novo pedido gera um novo ID sequencial)
+	@GeneratedValue(strategy = GenerationType.IDENTITY) // indicar que o ID é auto incrementavel (cada novo pedido gera
+														// um novo ID sequencial)
 	private Long id;
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
 	private Instant momentoDoPedido;
-	
-	@ManyToOne //muitos pra 1
-	@JoinColumn(name = "id_cliente") //criar coluna no banco de dados
+
+	@ManyToOne // muitos pra 1
+	@JoinColumn(name = "id_cliente") // criar coluna no banco de dados
 	private Usuario cliente;
-	
+
 	public Pedido() {
 	}
 

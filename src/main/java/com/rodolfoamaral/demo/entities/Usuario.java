@@ -10,6 +10,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Usuario implements Serializable { //transformar obj em cadeias de bites, para trafegar na rede e ser gravado em arquivos
 	private static final long serialVersionUID = 1L;
@@ -22,6 +24,7 @@ public class Usuario implements Serializable { //transformar obj em cadeias de b
 	private String fone;
 	private String senha;
 	
+	@JsonIgnore //para não dar loop nos chamados um pra varios
 	@OneToMany(mappedBy = "cliente")
 	private List<Pedido> pedidos = new ArrayList<>();
 	
