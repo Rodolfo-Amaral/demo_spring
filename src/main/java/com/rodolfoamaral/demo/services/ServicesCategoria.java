@@ -20,7 +20,7 @@ public class ServicesCategoria {
 		return repoCategoria.findAll();
 	}
 	
-	//BUSCAR USER PELA ID
+	//BUSCAR PELA ID
 	public Categoria localizarID(Long id) {
 		Optional<Categoria> obj = repoCategoria.findById(id);
 		return obj.get(); //retornar o obj dentro do optional
