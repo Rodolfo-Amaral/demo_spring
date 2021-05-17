@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Profile;
 
 import com.rodolfoamaral.demo.entities.Categoria;
 import com.rodolfoamaral.demo.entities.ItemPedido;
+import com.rodolfoamaral.demo.entities.Pagamento;
 import com.rodolfoamaral.demo.entities.Pedido;
 import com.rodolfoamaral.demo.entities.Produto;
 import com.rodolfoamaral.demo.entities.Usuario;
@@ -68,7 +69,7 @@ public class TestConfig implements CommandLineRunner {
 		Usuario u1 = new Usuario(null, "Gordon Freeman", "DrFreeman@blackmesa.com", "988888888", "808080");
 		Usuario u2 = new Usuario(null, "Agent 47", "a47@id.io", "977777777", "004700");
 		
-		Pedido p1 = new Pedido(null, Instant.parse("2019-06-20T19:53:07Z"), StatusPedido.AGUARDANDO_PAGAMENTO, u1);
+		Pedido p1 = new Pedido(null, Instant.parse("2019-06-20T19:53:07Z"), StatusPedido.PAGO, u1);
 		Pedido p2 = new Pedido(null, Instant.parse("2019-07-21T03:42:10Z"), StatusPedido.DESPACHADO, u2);
 		Pedido p3 = new Pedido(null, Instant.parse("2019-07-22T15:21:22Z"), StatusPedido.AGUARDANDO_PAGAMENTO, u1);
 		
@@ -80,5 +81,10 @@ public class TestConfig implements CommandLineRunner {
 		ItemPedido ip3 = new ItemPedido(p2, prod3, 2, prod3.getPreco());
 		ItemPedido ip4 = new ItemPedido(p3, prod5, 2, prod5.getPreco());
 		repoItens.saveAll(Arrays.asList(ip1, ip2, ip3, ip4));
+		
+		Pagamento pag = new Pagamento(null, Instant.parse("2019-06-20T21:03:07Z"), p1);
+		p1.setPagamento(pag);
+		
+		repoPedido.save(p1);
 	}
 }
