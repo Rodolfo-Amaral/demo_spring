@@ -9,11 +9,13 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
 import com.rodolfoamaral.demo.entities.Categoria;
+import com.rodolfoamaral.demo.entities.ItemPedido;
 import com.rodolfoamaral.demo.entities.Pedido;
 import com.rodolfoamaral.demo.entities.Produto;
 import com.rodolfoamaral.demo.entities.Usuario;
 import com.rodolfoamaral.demo.entities.enums.StatusPedido;
 import com.rodolfoamaral.demo.repositories.RepositoryCategoria;
+import com.rodolfoamaral.demo.repositories.RepositoryItemPedido;
 import com.rodolfoamaral.demo.repositories.RepositoryPedido;
 import com.rodolfoamaral.demo.repositories.RepositoryProduto;
 import com.rodolfoamaral.demo.repositories.RepositoryUsuario;
@@ -33,6 +35,9 @@ public class TestConfig implements CommandLineRunner {
 	
 	@Autowired
 	private RepositoryProduto repoProd;
+	
+	@Autowired
+	private RepositoryItemPedido repoItens;
 	
 	//EXECUTAR QUANDO O PROGRAMA FOR INICIADO (CommandLineRunner)
 	@Override
@@ -69,5 +74,11 @@ public class TestConfig implements CommandLineRunner {
 		
 		repoUsuario.saveAll(Arrays.asList(u1, u2)); //saveAll passa uma lista de obj para salvar no banco
 		repoPedido.saveAll(Arrays.asList(p1, p2, p3));
+		
+		ItemPedido ip1 = new ItemPedido(p1, prod1, 2, prod1.getPreco());
+		ItemPedido ip2 = new ItemPedido(p1, prod3, 1, prod3.getPreco());
+		ItemPedido ip3 = new ItemPedido(p2, prod3, 2, prod3.getPreco());
+		ItemPedido ip4 = new ItemPedido(p3, prod5, 2, prod5.getPreco());
+		repoItens.saveAll(Arrays.asList(ip1, ip2, ip3, ip4));
 	}
 }
