@@ -29,5 +29,9 @@ public class ServicesUsuario {
 	public Usuario insert(Usuario obj) {
 		return repoUsuario.save(obj);
 	}
+	
+	public void deletarUsuario(Long id) {
+		repoUsuario.deleteById(id);
+	}
 
 }
