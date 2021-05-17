@@ -101,6 +101,15 @@ public class Pedido implements Serializable {
 	public Set<ItemPedido> getItens(){
 		return itens;
 	}
+	
+	public Double getTotal() {
+		double soma = 0.0;
+		for (ItemPedido item : itens) {
+			soma += item.getSubTotal();
+		}
+		return soma;
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
