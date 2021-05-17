@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.rodolfoamaral.demo.entities.Usuario;
 import com.rodolfoamaral.demo.repositories.RepositoryUsuario;
+import com.rodolfoamaral.demo.services.exceptions.ResourceNotFoundExcecao;
 
 @Service
 public class ServicesUsuario {
@@ -23,7 +24,7 @@ public class ServicesUsuario {
 	//BUSCAR USER PELA ID
 	public Usuario localizarID(Long id) {
 		Optional<Usuario> obj = repoUsuario.findById(id);
-		return obj.get(); //retornar o obj dentro do optional
+		return obj.orElseThrow(() -> new ResourceNotFoundExcecao(id));
 	}
 	
 	public Usuario inserirUsuario(Usuario obj) {
