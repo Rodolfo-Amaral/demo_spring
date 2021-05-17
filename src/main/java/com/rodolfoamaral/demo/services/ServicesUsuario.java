@@ -25,5 +25,9 @@ public class ServicesUsuario {
 		Optional<Usuario> obj = repoUsuario.findById(id);
 		return obj.get(); //retornar o obj dentro do optional
 	}
+	
+	public Usuario insert(Usuario obj) {
+		return repoUsuario.save(obj);
+	}
 
 }
