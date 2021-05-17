@@ -11,7 +11,10 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "produtos")
@@ -29,9 +32,11 @@ public class Produto implements Serializable {
 	@ManyToMany
 	@JoinTable(name = "categoria_produto", joinColumns = @JoinColumn(name = "id_produto"), inverseJoinColumns = @JoinColumn(name = "id_categoria"))
 	// SET = para nao ter elementos duplicados
-	private Set<Categoria> categorias = new HashSet<>(); // garantir que a coleção não começe nula (nao colocar no
-															// construtor pois ja esta instanciada aqui)
-
+	private Set<Categoria> categorias = new HashSet<>(); // garantir que a coleção não começe nula (nao colocar no construtor pois ja esta instanciada aqui)
+	
+	@OneToMany(mappedBy = "id.produto")
+	private Set<ItemPedido> itens = new HashSet<>();
+	
 	public Produto() {
 	}
 
@@ -86,6 +91,15 @@ public class Produto implements Serializable {
 
 	public Set<Categoria> getCategorias() {
 		return categorias;
+	}
+	
+	@JsonIgnore
+	public Set<Pedido> getPedido(){
+		Set<Pedido> set = new HashSet<>();
+		for (ItemPedido x : itens) {
+			set.add(x.getPedido());
+		}
+		return set;
 	}
 
 	@Override
