@@ -26,7 +26,7 @@ public class ServicesUsuario {
 		return obj.get(); //retornar o obj dentro do optional
 	}
 	
-	public Usuario insert(Usuario obj) {
+	public Usuario inserirUsuario(Usuario obj) {
 		return repoUsuario.save(obj);
 	}
 	
@@ -34,4 +34,15 @@ public class ServicesUsuario {
 		repoUsuario.deleteById(id);
 	}
 
+	public Usuario atualizarUsuario(Long id, Usuario obj) {
+		Usuario user = repoUsuario.getOne(id);
+		atualizarDados(user, obj);
+		return repoUsuario.save(user);		
+	}
+
+	private void atualizarDados(Usuario user, Usuario obj) {
+		user.setNome(obj.getNome());
+		user.setEmail(obj.getEmail());
+		user.setFone(obj.getFone());		
+	}
 }

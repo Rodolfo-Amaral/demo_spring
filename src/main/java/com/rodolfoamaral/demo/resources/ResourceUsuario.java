@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -40,7 +41,7 @@ public class ResourceUsuario {
 	
 	@PostMapping
 	public ResponseEntity<Usuario> insert(@RequestBody Usuario obj){
-		obj = servico.insert(obj);
+		obj = servico.inserirUsuario(obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
 		return ResponseEntity.created(uri).body(obj);
 	}
@@ -49,5 +50,11 @@ public class ResourceUsuario {
 	public ResponseEntity<Void> delete(@PathVariable Long id){
 		servico.deletarUsuario(id);
 		return ResponseEntity.noContent().build();
+	}
+	
+	@PutMapping(value = "/{id}")
+	public ResponseEntity<Usuario> atualizar(@PathVariable Long id, @RequestBody Usuario obj) {
+		obj = servico.atualizarUsuario(id, obj);
+		return ResponseEntity.ok().body(obj);
 	}
 }
